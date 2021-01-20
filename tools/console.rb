@@ -7,10 +7,10 @@ end
 # This is a convenient place to define variables and/or set up new object instances,
 # so they will be available to test and play around with in your console
 
-cult1 = Cult.new("Mahomies", "Kansas City", 2017, "Run it Back")
-cult2 = Cult.new("Techsans", "Lubbock", 2010, "Wreck 'em")
-cult3 = Cult.new("ATX Fans", "Austin", 2014, "Keep Austin weird")
-cult4 = Cult.new("Mavs Fans", "Dallas", 1992, "MFFL")
+cult1 = Cult.new("Mahomies", "Kansas City", 2017, "Run it Back", 21)
+cult2 = Cult.new("Techsans", "Lubbock", 2010, "Wreck 'em", 21)
+cult3 = Cult.new("ATX Fans", "Austin", 2014, "Keep Austin weird", 21)
+cult4 = Cult.new("Mavs Fans", "Dallas", 1992, "MFFL", 21)
 
 follower1 = Follower.new("David", 28, "Who moved my cheese?")
 follower2 = Follower.new("Jeff", 31, "Hook 'em")
@@ -25,6 +25,7 @@ follower10 = Follower.new("John", 23, "Go dawgs!")
 follower11 = Follower.new("Andy", 25, "Park the car")
 follower12 = Follower.new("Af", 31, "Wanna chat")
 follower13 = Follower.new("Bob", 62, "Coach")
+follower14 = Follower.new("Lee", 18, "I'm an adult")
 
 
 bo1 = BloodOath.new(cult1, follower1, "2018-08-01")
@@ -77,6 +78,14 @@ Follower.most_active
 Follower.top_ten
 
 BloodOath.first_oath
+
+follower1.fellow_cult_members
+
+cult2.min_age
+
+cult1.recruit_follower(follower14)
+
+follower14.join_cult(cult2)
 
 binding.pry
 

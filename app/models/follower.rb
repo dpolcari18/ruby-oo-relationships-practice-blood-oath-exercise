@@ -47,10 +47,19 @@ class Follower
     end
 
     def join_cult(cult)
-        BloodOath.new(cult, self, Date.today.to_s)
+        self.age > cult.min_age ? 
+            BloodOath.new(cult, self, Date.today.to_s) :
+            "Sorry you are not old enough to join this cult."
     end
 
     def my_cults_slogans
         self.my_cults.map {|my_cults| puts my_cults.cult.slogan}
+    end
+
+    def fellow_cult_members
+        self.my_cults.map {|my_bos| 
+            my_bos.cult}.map {|cults| 
+                cults.cult_bloodoaths}.flatten.map {|bos| 
+                    bos.follower.name}.uniq
     end
 end

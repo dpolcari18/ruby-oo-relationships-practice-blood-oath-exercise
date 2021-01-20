@@ -1,15 +1,16 @@
 require 'date'
 
 class Cult
-    attr_accessor :name, :location, :founding_year, :slogan
+    attr_accessor :name, :location, :founding_year, :slogan, :min_age
 
     @@all = []
 
-    def initialize(name, location, founding_year, slogan)
+    def initialize(name, location, founding_year, slogan, min_age)
         @name = name
         @location = location
         @founding_year = founding_year
         @slogan = slogan
+        @min_age = min_age
         
         save
     end
@@ -19,7 +20,7 @@ class Cult
     end
 
     def self.find_by_name(name)
-        self.all.select {|cults| cults.name == name }
+        self.all.find {|cults| cults.name == name }
     end
 
     def self.find_by_location(location)
@@ -34,8 +35,8 @@ class Cult
 
     # Only returns one value if there is a tie...
     def self.least_popular
-        bo_arr = BloodOath.all.map {|blood_oaths| blood_oaths.cult}
-        bo_arr.min_by {|bos| bo_arr.count(bos)}
+        self.all.reduce {|acc, cult| 
+            cult.cult_population < acc.cult_population ? cult : acc}
     end
 
     # Only returns one value if there is a tie...
@@ -49,7 +50,9 @@ class Cult
     end
 
     def recruit_follower(follower)
-        BloodOath.new(self, follower, Date.today.to_s)
+        follower.age > self.min_age ?
+            BloodOath.new(self, follower, Date.today.to_s) :
+            "Sorry you are not old enough to join this cult."
     end
 
     # Returns array of all bloodoath instances
